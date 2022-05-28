@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  decreaseCounter,
+  increaseCounter,
+  selectCounterState,
+} from "./store/reducers/counter";
 import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(10);
+  const dispatch = useDispatch();
+  const { counter } = useSelector(selectCounterState);
 
   return (
     <div className="App">
@@ -11,9 +17,9 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!</p>
         <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
+          <button onClick={() => dispatch(increaseCounter())}>Increse</button>
+          <button type="button">count is: {counter}</button>
+          <button onClick={() => dispatch(decreaseCounter())}>Decrease</button>
         </p>
         <p>
           Edit <code>App.jsx</code> and save to test HMR updates.
